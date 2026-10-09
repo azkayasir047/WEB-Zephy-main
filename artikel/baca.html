@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artikel | Zephyrus ITB</title>
+    <meta name="description" content="Artikel Badan Otonom Zephyrus ITB">
+    <link rel="icon" type="image/png" href="../assets/img/Logo Zephyrus.png">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/artikel/artikel.css">
+    <link rel="stylesheet" href="../assets/css/artikel/baca.css">
+    <link rel="stylesheet" href="../assets/css/fontawesome.min.css">
+</head>
+
+<body>
+
+<!-- HEADER (sama dengan art.html) -->
+<header class="header">
+    <div class="container flex-row header-container">
+        <div class="header__logo">
+            <a href="../tes_carousel.html">
+                <img src="../assets/img/logo1.png" alt="LogoZephyrus">
+            </a>
+        </div>
+
+        <div class="header__nav-wrapper">
+            <ul class="header__menu-desktop">
+                <li><a href="../tes_carousel.html">Beranda</a></li>
+                <li><a href="../Data.html">Data</a></li>
+                <li><a href="../artikel/art.html">Artikel</a></li>
+            </ul>
+
+            <button class="hamburger-btn" id="hamburger-trigger" aria-label="Buka Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div class="hamburger-dropdown" id="hamburger-target">
+            <ul>
+                <li><a href="../profile.html" class="sub-menu-item">Profil</a></li>
+                <li><a href="../kalender.html" class="sub-menu-item">Kalender</a></li>
+                <li><a href="../login.html" class="sub-menu-item login-highlight">Login</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+
+<main class="baca-page">
+
+    <!-- Banner khusus admin saat membuka draft -->
+    <div class="baca-draft-banner" id="draftBanner" hidden>
+        <i class="fas fa-eye-slash"></i>
+        <span>Ini <strong>pratinjau draft</strong> — belum terlihat oleh pengunjung.</span>
+        <a id="draftEditLink" href="#">Lanjut edit</a>
+    </div>
+
+    <article class="baca-container" id="articleRoot" aria-busy="true">
+
+        <a href="art.html" class="baca-back">
+            <i class="fas fa-arrow-left"></i> Semua Artikel
+        </a>
+
+        <!-- Loading -->
+        <div class="baca-state" id="articleState">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Memuat artikel...</p>
+        </div>
+
+        <div id="articleBody" hidden>
+
+            <header class="baca-header">
+                <span class="baca-category" id="articleCategory"></span>
+                <h1 id="articleTitle"></h1>
+                <div class="baca-meta">
+                    <span><i class="fas fa-calendar"></i> <span id="articleDate"></span></span>
+                    <span><i class="fas fa-user"></i> <span id="articleAuthor"></span></span>
+                    <span><i class="fas fa-clock"></i> <span id="articleRead"></span></span>
+                </div>
+            </header>
+
+            <img class="baca-cover" id="articleCover" alt="" hidden>
+
+            <!-- Isi artikel dari editor admin (sudah dibersihkan DOMPurify) -->
+            <div class="baca-content" id="articleContent"></div>
+
+            <div class="baca-share">
+                <span>Bagikan:</span>
+                <a id="shareWa" href="#" target="_blank" rel="noopener" class="share-btn">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a id="shareLine" href="#" target="_blank" rel="noopener" class="share-btn">
+                    <i class="fab fa-line"></i> LINE
+                </a>
+                <button type="button" id="shareCopy" class="share-btn">
+                    <i class="fas fa-link"></i> <span>Salin Link</span>
+                </button>
+            </div>
+
+        </div>
+
+    </article>
+
+    <!-- Artikel lainnya -->
+    <section class="baca-related" id="relatedSection" hidden>
+        <h2>Artikel Lainnya</h2>
+        <div class="baca-related-grid" id="relatedGrid"></div>
+    </section>
+
+</main>
+
+
+<footer>
+    <div class="container">
+        <div class="footer__content">
+            <div class="footer__details">
+                <div class="footer__logo">
+                    <img src="../assets/img/logo1.png" alt="" width="150">
+                </div>
+
+                <p class="footer__text">
+                    #ZephyrusJourney <br>
+                    #RelevansiMengabdi
+                </p>
+
+                <div class="footer__bottom">
+                    <div class="footer__bottom-icons">
+                        <a href="https://lin.ee/oUlq1t3"><i class="fab fa-line"></i></a>
+                        <a href="mailto:hmmezephyrus@gmail.com"><i class="fas fa-envelope"></i></a>
+                        <a href="https://www.instagram.com/zephyrus.journey"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.google.com/maps/place/Bandung+Institute+of+Technology/"><i class="fas fa-map-marker-alt"></i></a>
+                    </div>
+                    <p>&copy; BO Zephyrus 2026</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script src="../assets/vendor/dompurify/purify.min.js"></script>
+<script src="../assets/js/artikel-baca.js"></script>
+<script src="../assets/js/auth-ui.js"></script>
+
+<script>
+    // Hamburger (sama dengan art.html)
+    document.addEventListener("DOMContentLoaded", function () {
+        const trigger = document.getElementById("hamburger-trigger");
+        const dropdown = document.getElementById("hamburger-target");
+
+        if (!trigger || !dropdown) return;
+
+        trigger.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropdown.classList.toggle("active");
+            trigger.querySelector("i").className =
+                dropdown.classList.contains("active") ? "fas fa-times" : "fas fa-bars";
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!trigger.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.remove("active");
+                trigger.querySelector("i").className = "fas fa-bars";
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

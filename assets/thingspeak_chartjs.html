@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+<head>
+    <meta charset="UTF-8">
+    <title>Water Monitoring Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        .chart-container {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .chart-title {
+            text-transform: uppercase;
+            background-color: #F5F5F5;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .chart-controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        .chart-controls button {
+            margin: 0 10px;
+            padding: 5px 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <!-- <div class="chart-title">Water Level and Rainfall</div> -->
+        <!-- <div class="chart-controls">
+            <button id="resetZoom">Reset Zoom</button>
+        </div> -->
+        <canvas id="waterLevelChart"></canvas>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Chart configuration function
+            function getChartConfig(labels, datasets) {
+                return {
+                    type: 'line',
+                    data: {
+                        datasets: datasets
+                    },
+                    options: {
+                        responsive: true,
+                        interaction: {
+                            mode: 'nearest',
+                            axis: 'x',
+                            intersect: false
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'TMA dan CH Cibangoak'
+                            },
+                            zoom: {
+                                zoom: {
+                                    wheel: {
+                                        enabled: true,
+                                    },
+                                    pinch: {
+                                        enabled: true
+                                    },
+                                    mode: 'x',
+                                },
+                                pan: {
+                                    enabled: true,
+                                    mode: 'x',
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    title: function(context) {
+                                        return context[0].label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'day',
+                                    displayFormats: {
+                                        day: 'MMM dd'
+                                    }
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Tanggal'
+                                }
+                            },
+                            y: {
+                                type: 'linear',
+                                display: true,
+                                position: 'left',
+                                title: {
+                                    display: true,
+                                    text: 'TMA (cm)'
+                                }
+                            },
+                            y1: {
+                                type: 'linear',
+                                display: true,
+                                position: 'right',
+                                title: {
+                                    display: true,
+                                    text: 'CH (mm)'
+                                },
+                                grid: {
+                                    drawOnChartArea: false
+                                }
+                            }
+                        }
+                    },
+                    plugins: [ChartZoom]
+                };
+            }
+
+            // Fetch ThingSpeak data
+            function fetchThingSpeakData(channelId, apiKey) {
+                var url = 'https://api.thingspeak.com/channels/' + channelId + '/feeds.json?api_key=' + apiKey + '&results=500';
+                
+                fetch(url)
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        // Process feed data
+                        var waterLevelData = [];
+                        var rainfallData = [];
+
+                        data.feeds.forEach(function(feed) {
+                            // Parse timestamp
+                            var date = new Date(feed.created_at);
+
+                            // Extract water level and rainfall
+                            var waterLevel = parseFloat(feed.field3);
+                            var rainfall = parseFloat(feed.field4);
+
+                            if (!isNaN(waterLevel)) {
+                                waterLevelData.push({
+                                    x: date,
+                                    y: waterLevel
+                                });
+                            }
+
+                            if (!isNaN(rainfall)) {
+                                rainfallData.push({
+                                    x: date,
+                                    y: rainfall
+                                });
+                            }
+                        });
+
+                        // Create chart configuration with two datasets
+                        var chartConfig = getChartConfig(null, [
+                            {
+                                label: 'Tinggi Muka Air',
+                                data: waterLevelData,
+                                borderColor: 'rgb(54, 162, 235)',
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                yAxisID: 'y',
+                            },
+                            {
+                                label: 'Curah Hujan',
+                                data: rainfallData,
+                                borderColor: 'rgb(255, 99, 132)',
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                yAxisID: 'y1',
+                            }
+                        ]);
+
+                        // Create the chart
+                        var ctx = document.getElementById('waterLevelChart').getContext('2d');
+                        var chart = new Chart(ctx, chartConfig);
+
+                        // Reset zoom button functionality
+                        document.getElementById('resetZoom').addEventListener('click', function() {
+                            chart.resetZoom();
+                        });
+                    })
+                    .catch(function(error) {
+                        console.error('Error fetching ThingSpeak data:', error);
+                    });
+            }
+
+            // Fetch data for the specified channel
+            fetchThingSpeakData('2649800', 'MLJBMJUO962CM9E6');
+        });
+    </script>
+</body>
+</html>

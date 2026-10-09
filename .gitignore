@@ -1,0 +1,5 @@
+# Dependensi Node (install ulang dengan: cd server && npm install)
+server/node_modules/
+
+# Rahasia: password database & session secret
+server/.env

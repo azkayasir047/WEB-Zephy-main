@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hujan dan Peluang Hujan Kota Bandung (Prakiraan 5 hari)</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="shortcut icon" type="image/png" href="https://drive.google.com/thumbnail?id=1o1QQHMqbIHo5-CVkgdoQgP6VCNlzU23s">
+</head>
+<body>
+  <h1>Hujan dan Peluang Hujan Kota Bandung (Prakiraan 5 hari)</h1>
+  <canvas id="precipitationChart"></canvas>
+  <script>
+    const apiKey = 'fefda776b66c743280661d5abc123c22'; // API Key
+    const cityId = 1650357; // Bandung city ID
+
+    async function getWeatherData() {
+      const url = `https://api.openweathermap.org/data/2.5/forecast?lat=-6.917444&lon=107.618130&appid=${apiKey}&units=metric`;
+      const response = await fetch(url);
+      const data = await response.json();
+      return data;
+    }
+
+    async function renderChart() {
+      const weatherData = await getWeatherData();
+
+      const precipitationData = weatherData.list.map(hour => {
+        // Check if rain is expected (weather id between 200 and 531)
+        if (hour.weather[0].id >= 200 && hour.weather[0].id <= 531) {
+          return hour.rain?.['3h'] || 0; // Use rain.3h if available, otherwise 0
+        } else {
+          return 0;
+        }
+      });
+
+      const chanceOfRainData = weatherData.list.map(hour => hour.pop * 100); // Convert probability to percentage
+
+      const labels = weatherData.list.map(hour => {
+        const date = new Date(hour.dt * 1000);
+        return `${date.toLocaleDateString()} ${date.toLocaleTimeString('short')}`;
+      });
+
+      const ctx = document.getElementById('precipitationChart').getContext('2d');
+      const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Hujan (mm)',
+              data: precipitationData,
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1,
+              yAxisID: 'precipitation-axis',
+              fill: false
+            },
+            {
+              label: 'Peluang Hujan (%)',
+              data: chanceOfRainData,
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 1,
+              yAxisID: 'chance-of-rain-axis',
+              fill: false
+            }
+          ]
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                id: 'precipitation-axis',
+                position: 'left',
+                label: 'Hujan (mm)',
+                ticks: {
+                  beginAtZero: true
+                }
+              },
+              {
+                id: 'chance-of-rain-axis',
+                position: 'right',
+                label: 'Peluang Hujan (%)',
+                ticks: {
+                  beginAtZero: true,
+                  max: 100
+                }
+              }
+            ]
+          }
+        }
+      });
+    }
+
+    renderChart();
+  </script>
+</body>
+</html>

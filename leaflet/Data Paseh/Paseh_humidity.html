@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kelembapan Relatif Paseh (Prakiraan 5 hari)</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="shortcut icon" type="image/png" href="https://drive.google.com/thumbnail?id=1o1QQHMqbIHo5-CVkgdoQgP6VCNlzU23s">
+</head>
+<body>
+  <h1>Kelembapan Relatif Paseh (Prakiraan 5 hari)</h1>
+  <canvas id="humidityChart"></canvas>
+  <script>
+    const apiKey = 'fefda776b66c743280661d5abc123c22'; // API Key
+    const cityId = 1632197; // Paseh city ID
+
+    async function getWeatherData() {
+      const url = `https://api.openweathermap.org/data/2.5/forecast?lat=-7.103&lon=107.764&appid=${apiKey}&units=metric`;
+      const response = await fetch(url);
+      const data = await response.json();
+      return data;
+    }
+
+    async function renderChart() {
+      const weatherData = await getWeatherData();
+      const humidity = weatherData.list.map(hour => hour.main.humidity);
+      const labels = weatherData.list.map(hour => {
+        const date = new Date(hour.dt * 1000);
+        return `${date.toLocaleDateString()} ${date.toLocaleTimeString('short')}`;
+      });
+
+      const ctx = document.getElementById('humidityChart').getContext('2d');
+      const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Kelembapan Relatif (%)',
+            data: humidity,
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1,
+            fill: false
+          }]
+        },
+        options: {
+          scales: {
+            xAxes: [{
+              ticks: {
+                autoSkip: false,
+                maxRotation: 90,
+                minRotation: 90
+              }
+            }],
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+    }
+
+    renderChart();
+  </script>
+</body>
+</html>

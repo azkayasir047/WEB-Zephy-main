@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artikel | Zephyrus ITB</title>
+    <link rel="icon" type="image/png" href="../assets/img/Logo Zephyrus.png">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/artikel/artikel.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="header">
+    <div class="container flex-row header-container">
+        <div class="header__logo">
+            <a href="../tes_carousel.html">
+                <img src="../assets/img/logo1.png" alt="LogoZephyrus">
+            </a>
+        </div>
+        
+        <div class="header__nav-wrapper">
+            <ul class="header__menu-desktop">
+                <li><a href="../tes_carousel.html">Beranda</a></li>
+                <li><a href="../Data.html">Data</a></li>
+                <li><a href="../artikel/art.html">Artikel</a></li>
+            </ul>
+            
+            <button class="hamburger-btn" id="hamburger-trigger" aria-label="Buka Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div class="hamburger-dropdown" id="hamburger-target">
+            <ul>
+                <li><a href="../profile.html" class="sub-menu-item">Profil</a></li>
+                <li><a href="../kalender.html" class="sub-menu-item">Kalender</a></li>
+                <li><a href="../login.html" class="sub-menu-item login-highlight">Login</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+    
+    
+    <section class="article-hero">
+        <div class="article.container">
+            <h1 class="section-heading text-center">Artikel</h1>
+            <p class="section-subheading text-center">
+                Temukan Informasi Menarik Seputar Badan Otonom Zephyrus
+            </p>
+        </div>
+    </section>
+
+    <section class="article-section">
+        <div class="article.container">
+            <!-- Filter kategori -->
+            <div class="article-filter" id="articleFilter">
+                <button type="button" class="filter-btn active" data-filter="all">Semua</button>
+                <button type="button" class="filter-btn" data-filter="Kegiatan">Kegiatan</button>
+                <button type="button" class="filter-btn" data-filter="Edukasi">Edukasi</button>
+                <button type="button" class="filter-btn" data-filter="Rekap Bulanan">Rekap Bulanan</button>
+            </div>
+
+            <!-- Kartu artikel diisi otomatis dari database
+                 (assets/js/artikel-list.js). Artikel ditulis lewat
+                 Dashboard Admin → Tambah Artikel. -->
+            <div class="article-grid" id="articleGrid" aria-live="polite">
+                <p class="article-state"><i class="fas fa-spinner fa-spin"></i> Memuat artikel...</p>
+            </div>
+
+            <div class="pagination-container" id="pagination" hidden>
+                <button type="button" class="page-btn prev-btn" disabled><i class="fas fa-chevron-left"></i> Prev</button>
+                <div class="page-numbers" id="pageNumbers"></div>
+                <button type="button" class="page-btn next-btn">Next <i class="fas fa-chevron-right"></i></button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- BAGIAN KONTAK -->
+<!-- CONTACT -->
+<section id="contact" style="background: url(../assets/img/contact-bg.png); background-repeat: no-repeat; background-position: right; background-size: contain;">
+    <div class="article.container">
+        <h2 class="section-heading text-center"style="margin: 0px auto 60px auto;">MEDIA SOSIAL</h2>
+        <div class="contact">
+            <div class="contact-info">
+                <div class="details">
+                    <div class="detail">
+                        <i class="fab fa-instagram"></i>
+                        <div class="detail__content">
+                    <h3>Instagram</h3>
+              <p><a href="https://www.instagram.com/zephyrus.journey/">@zephyrus.journey</a></p>
+            </div>
+          </div>
+          <div class="detail">
+            <i class="fab fa-line"></i>
+            <div class="detail__content">
+              <h3>OA LINE</h3>
+              <p><a href="https://lin.ee/oUlq1t3">@590efkcc</a></p>
+            </div>
+          </div>
+          <div class="detail">
+            <i class="fas fa-envelope"></i>
+            <div class="detail__content">
+              <h3>Email</h3>
+              <p><a href="mailto:hmmezephyrus@gmail.com">hmmezephyrus@gmail.com</a></p>
+            </div>
+          </div>
+          <div class="detail">
+            <i class="fas fa-map-marker-alt"></i>
+            <div class="detail__content">
+              <h3>Alamat Sekretariat HMME "ATMOSPHAIRA" ITB</h3>
+              <p><a href="https://www.google.com/maps/place/Bandung+Institute+of+Technology/@-6.89148,107.6080788,17z/data=!3m1!4b1!4m6!3m5!1s0x2e68e65767c9b183:0x2478e3dcdce37961!8m2!3d-6.89148!4d107.6106591!16s%2Fm%2F06wc97_?entry=ttu">Labtek XI Kampus Ganesha Institut Teknologi Bandung, Jalan Ganesa No. 10</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map on the right side -->
+      <div class="contact-map">
+        <iframe
+            src="https://www.google.com/maps?q=Labtek+XI+Institut+Teknologi+Bandung&output=embed"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+</div>
+
+    <footer data-aos="fade-down">
+    <div class="container">
+        <div class="footer__content">
+            <div class="footer__details">
+                <div class="footer__logo">
+                    <img src="../assets/img/logo1.png" alt="" width="150">
+                </div>
+
+                <p class="footer__text">
+                    #ZephyrusJourney <br>
+                    #RelevansiMengabdi
+                </p>
+
+                <div class="footer__bottom">
+                    <div class="footer__bottom-icons">
+                        <a href="https://lin.ee/oUlq1t3" class="linkedin">
+                            <i class="fab fa-line"></i>
+                        </a>
+                        <a href="mailto:hmmezephyrus@gmail.com" class="email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://www.instagram.com/zephyrus.journey" class="instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.google.com/maps/place/Bandung+Institute+of+Technology/" class="linkedin">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </a>
+                    </div>
+                    <p>&copy; BO Zephyrus 2026</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </footer>
+
+    <script src="../assets/js/artikel-list.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const trigger = document.getElementById("hamburger-trigger");
+        const dropdown = document.getElementById("hamburger-target");
+
+        if (trigger && dropdown) {
+            trigger.addEventListener("click", function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                dropdown.classList.toggle("active");
+                
+                // Variasi ganti icon bars ke silang (X) pas kebuka
+                const icon = trigger.querySelector("i");
+                if (dropdown.classList.contains("active")) {
+                    icon.className = "fas fa-times";
+                } else {
+                    icon.className = "fas fa-bars";
+                }
+            });
+
+            // Klik di luar dropdown akan otomatis nutup
+            document.addEventListener("click", function(e) {
+                if (!trigger.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.classList.remove("active");
+                    trigger.querySelector("i").className = "fas fa-bars";
+                }
+            });
+        }
+    });
+</script>
+<script src="../assets/js/auth-ui.js"></script>
+
+</body>
+</html>

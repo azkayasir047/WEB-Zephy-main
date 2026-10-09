@@ -1,0 +1,346 @@
+/* =========================================================
+   HALAMAN BACA ARTIKEL (artikel/baca.html)
+   Semua class diawali "baca-" supaya tidak bentrok dengan
+   styles.css / artikel.css.
+   ========================================================= */
+
+/* Atribut hidden harus menang atas display:flex/grid di bawah */
+.baca-page [hidden] {
+    display: none !important;
+}
+
+.baca-page {
+    padding: 130px 20px 60px;
+    background: linear-gradient(180deg, #eef4fb 0%, #ffffff 420px);
+}
+
+.baca-draft-banner {
+    max-width: 860px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 12px 18px;
+    border-radius: 12px;
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 0.95rem;
+}
+
+.baca-draft-banner a {
+    margin-left: auto;
+    color: #92400e;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.baca-container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 44px 40px;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(1, 22, 56, 0.07);
+}
+
+.baca-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 22px;
+    color: #195E8E;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.baca-back:hover {
+    text-decoration: underline;
+}
+
+/* ---------- state (loading / 404) ---------- */
+
+.baca-state {
+    text-align: center;
+    padding: 60px 10px;
+    color: #64748b;
+}
+
+.baca-state i {
+    font-size: 2.2rem;
+    color: #94a3b8;
+    margin-bottom: 14px;
+}
+
+.baca-state p {
+    margin-bottom: 18px;
+}
+
+.baca-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: #011638;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* ---------- header ---------- */
+
+.baca-category {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #195E8E;
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.baca-header h1 {
+    margin: 14px 0 0;
+    font-size: 2.3rem;
+    line-height: 1.3;
+    color: #011638;
+    text-transform: none;
+    overflow-wrap: anywhere;
+}
+
+.baca-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+    margin-top: 16px;
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.baca-meta i {
+    color: #FFC300;
+    margin-right: 4px;
+}
+
+.baca-cover {
+    display: block;
+    width: 100%;
+    max-height: 460px;
+    object-fit: cover;
+    border-radius: 16px;
+    margin: 28px 0 8px;
+}
+
+/* ---------- isi artikel ---------- */
+
+.baca-content {
+    margin-top: 28px;
+    font-size: 1.07rem;
+    line-height: 1.9;
+    color: #1f2937;
+    overflow-wrap: anywhere;
+}
+
+.baca-content p {
+    margin: 0 0 1.1em;
+}
+
+.baca-content h2,
+.baca-content h3 {
+    color: #011638;
+    line-height: 1.35;
+    text-transform: none;
+    text-align: left;
+}
+
+.baca-content h2 {
+    font-size: 1.6rem;
+    margin: 1.8em 0 0.6em;
+}
+
+.baca-content h3 {
+    font-size: 1.3rem;
+    margin: 1.5em 0 0.5em;
+}
+
+.baca-content ul,
+.baca-content ol {
+    margin: 0 0 1.1em;
+    padding-left: 1.6em;
+}
+
+/* styles.css mematikan bullet untuk semua <li>, dinyalakan lagi di sini */
+.baca-content ul > li { list-style: disc; }
+.baca-content ol > li { list-style: decimal; }
+
+.baca-content li {
+    margin-bottom: 0.35em;
+}
+
+.baca-content blockquote {
+    margin: 1.6em 0;
+    padding: 4px 0 4px 20px;
+    border-left: 4px solid #FFC300;
+    color: #475569;
+    font-style: italic;
+}
+
+.baca-content a {
+    color: #195E8E;
+    text-decoration: underline;
+}
+
+.baca-content img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin: 1.4em auto;
+}
+
+.baca-content .ql-align-center { text-align: center; }
+.baca-content .ql-align-right { text-align: right; }
+.baca-content .ql-align-justify { text-align: justify; }
+
+/* ---------- share ---------- */
+
+.baca-share {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 36px;
+    padding-top: 22px;
+    border-top: 1px solid #e5e7eb;
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1px solid #dbe3ee;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #011638;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.share-btn:hover {
+    border-color: #195E8E;
+    background: #eef4fb;
+}
+
+/* ---------- artikel lainnya ---------- */
+
+.baca-related {
+    max-width: 860px;
+    margin: 50px auto 0;
+    padding: 0 !important;
+}
+
+.baca-related h2 {
+    font-size: 1.5rem;
+    color: #011638;
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.baca-related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.baca-related-card {
+    display: block;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.baca-related-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+}
+
+.baca-related-card img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    display: block;
+}
+
+.baca-related-card img.is-fallback {
+    object-fit: contain;
+    padding: 12px;
+    background: #f8fafc;
+}
+
+.baca-related-card div {
+    padding: 12px 14px 16px;
+}
+
+.baca-related-card span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #195E8E;
+}
+
+.baca-related-card h3 {
+    margin-top: 4px;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #011638;
+    text-transform: none;
+    text-align: left;
+}
+
+/* ---------- mobile ---------- */
+
+@media (max-width: 768px) {
+
+    .baca-page {
+        padding: 100px 14px 40px;
+    }
+
+    .baca-container {
+        padding: 22px 18px 28px;
+        border-radius: 14px;
+    }
+
+    .baca-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .baca-content {
+        font-size: 1rem;
+    }
+
+    .baca-related-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .baca-related-card {
+        display: flex;
+        align-items: center;
+    }
+
+    .baca-related-card img {
+        width: 110px;
+        height: 90px;
+        flex-shrink: 0;
+    }
+
+}

@@ -1,0 +1,595 @@
+/* ==========================================================================
+   FIXED CLEAN HEADER WITH PERMANENT HAMBURGER DROPDOWN (STRUKTUR FINAL)
+   ========================================================================== */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background: #ffffff !important;
+    box-shadow: 0 0 10px #bfa454; /* Menyesuaikan shadow kuning/emas bawah */
+}
+
+.header-container {
+    padding: 0 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /* Kunci penempatan dropdown absolute */
+}
+
+.header__logo img {
+    max-height: 45px !important;
+    width: auto;
+    display: block;
+}
+
+/* Wrapper Navigasi Kanan */
+.header__nav-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Menu Utama Horizontal (Desktop) */
+.header__menu-desktop {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.header__menu-desktop li a {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #011638;
+    transition: color 0.2s ease;
+}
+
+.header__menu-desktop li a:hover {
+    color: #bfa454 !important; /* Efek Emas */
+}
+
+/* Tombol Hamburger */
+.hamburger-btn {
+    background: none;
+    border: none;
+    color: #011638;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.hamburger-btn:hover {
+    color: #bfa454;
+}
+
+/* PANEL DROPDOWN HAMBURGER (MELAYANG ELEGAN) */
+.hamburger-dropdown {
+    position: absolute;
+    top: 75px; /* Pas di bawah batas header */
+    right: 5%; /* Sejajar dengan tombol hamburger */
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    padding: 8px 0;
+    display: none; /* Sembunyi default */
+    z-index: 1000;
+    animation: slideDownMenu 0.2s ease-out;
+}
+
+/* Tampilkan Dropdown saat ada class active */
+.hamburger-dropdown.active {
+    display: block;
+}
+
+.hamburger-dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Item di dalam Dropdown Hamburger */
+.sub-menu-item {
+    display: block;
+    padding: 10px 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333333;
+    transition: all 0.2s ease;
+}
+
+.sub-menu-item:hover {
+    background: rgba(1, 204, 255, 0.03);
+    color: #bfa454;
+    padding-left: 24px; /* Efek geser sedikit pas di-hover */
+}
+
+/* SPESIFIK INDIKATOR HALAMAN PROFIL SEDANG AKTIF (Gelap & Emas) */
+.sub-menu-item.active-page {
+    background: #195E8E !important; /* Latar belakang gelap penanda */
+    color: #bfa454 !important; /* Font warna emas */
+    font-weight: 600;
+}
+
+.sub-menu-item.active-page:hover {
+    background: #195E8E !important;
+}
+
+/* Penanda khusus tombol Login di mobile dropdown */
+.login-highlight {
+    border-top: 1px solid #f0f0f0;
+    margin-top: 4px;
+    color: #195E8E;
+}
+
+/* Animasi muncul smooth dari atas */
+@keyframes slideDownMenu {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   KALENDER
+   ========================================================= */
+
+#calendar-section {
+    padding: 120px 0 70px;
+}
+
+/* Judul halaman */
+#calendar-section .section-heading {
+    text-align: center;
+    margin: 50px auto 50px auto;
+    color: #011638;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+/* Card kalender */
+.calendar-card {
+    background: rgba(255, 255, 255, .8);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+}
+
+/* Samakan header Sabtu dengan header hari lainnya */
+.fc .fc-col-header-cell.fc-day-sat {
+    background-color: #011638 !important;
+}
+
+.fc .fc-col-header-cell.fc-day-sun {
+    background-color: #011638 !important;
+}
+
+.fc .fc-col-header-cell.fc-day-sat .fc-col-header-cell-cushion {
+    color: #ffffff !important;
+}
+
+/* =====================================================
+   FIX BACKGROUND KALENDER
+   SEMUA KOLOM/CELL PUTIH
+   ===================================================== */
+
+.fc .fc-daygrid-body,
+.fc .fc-scrollgrid,
+.fc .fc-scrollgrid-section,
+.fc .fc-daygrid-day,
+.fc .fc-daygrid-day-frame,
+.fc .fc-day-today,
+.fc .fc-day-sat,
+.fc .fc-day-sun {
+    background-color: #ffffff !important;
+}
+/* =====================================================
+   MOBILE — KALENDER
+   ===================================================== */
+
+@media screen and (max-width: 768px) {
+
+    /* =================================================
+       GLOBAL
+       ================================================= */
+
+    html,
+    body {
+        width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+
+    /* =================================================
+       HEADER
+       SAMA SEPERTI MOBILE ARTIKEL
+       ================================================= */
+
+    .header-container {
+        padding: 0 12px !important;
+    }
+
+    .header__logo img {
+        width: 95px !important;
+        max-height: 40px !important;
+    }
+
+    .header__nav-wrapper {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        min-width: 0 !important;
+    }
+
+    .header__menu-desktop {
+        display: flex !important;
+        align-items: center !important;
+        gap: 7px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        white-space: nowrap !important;
+    }
+
+    .header__menu-desktop li a {
+        font-size: 0.68rem !important;
+        white-space: nowrap !important;
+    }
+
+    .hamburger-btn {
+        font-size: 1rem !important;
+        padding: 5px !important;
+    }
+
+    .hamburger-dropdown {
+        top: 60px !important;
+        right: 12px !important;
+        width: 170px !important;
+    }
+
+
+    /* =================================================
+       SECTION KALENDER
+       ================================================= */
+
+    #calendar-section {
+        width: 100% !important;
+
+        padding: 90px 0 35px !important;
+
+        overflow: hidden !important;
+    }
+
+    #calendar-section > .container {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        padding: 0 !important;
+        margin: 0 auto !important;
+    }
+
+
+    /* =================================================
+       JUDUL "KALENDER KEGIATAN"
+       ================================================= */
+
+    #calendar-section .section-heading {
+        text-align: center !important;
+
+        font-size: 1.35rem !important;
+        line-height: 1.2 !important;
+
+        margin: 0 auto 20px auto !important;
+
+        padding: 0 !important;
+    }
+
+
+    /* =================================================
+       CARD KALENDER
+       ================================================= */
+
+    .calendar-card {
+        width: calc(100% - 16px) !important;
+        max-width: 390px !important;
+
+        margin: 0 auto !important;
+
+        padding: 12px !important;
+
+        border-radius: 12px !important;
+
+        overflow: hidden !important;
+
+        box-sizing: border-box !important;
+    }
+
+
+    /* =================================================
+       FULLCALENDAR
+       ================================================= */
+
+    #calendar {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        min-width: 0 !important;
+    }
+
+
+    /* =================================================
+       TOOLBAR
+       
+       LAYOUT:
+       
+                 Agustus 2026
+       
+       [‹] [›] [Hari Ini]    [Bulan] [Minggu] [Agenda]
+       
+       ================================================= */
+
+    .fc .fc-toolbar {
+        display: grid !important;
+
+        grid-template-columns: 1fr auto 1fr !important;
+
+        grid-template-rows: auto auto !important;
+
+        align-items: center !important;
+
+        gap: 7px !important;
+
+        margin-bottom: 15px !important;
+
+        width: 100% !important;
+    }
+
+
+    /* =================================================
+       TOOLBAR KIRI
+       PREVIOUS / NEXT / HARI INI
+       ================================================= */
+
+    .fc .fc-toolbar-chunk:first-child {
+        grid-column: 1 !important;
+        grid-row: 2 !important;
+
+        justify-self: start !important;
+
+        display: flex !important;
+        align-items: center !important;
+
+        gap: 4px !important;
+
+        width: auto !important;
+    }
+
+
+    /* =================================================
+       TOOLBAR TENGAH
+       AGUSTUS 2026
+       ================================================= */
+
+    .fc .fc-toolbar-chunk:nth-child(2) {
+        grid-column: 1 / 4 !important;
+        grid-row: 1 !important;
+
+        justify-self: center !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        width: auto !important;
+    }
+
+    .fc .fc-toolbar-title {
+        font-size: 1.15rem !important;
+
+        line-height: 1.2 !important;
+
+        white-space: nowrap !important;
+
+        margin: 0 !important;
+    }
+
+
+    /* =================================================
+       TOOLBAR KANAN
+       BULAN / MINGGU / AGENDA
+       ================================================= */
+
+    .fc .fc-toolbar-chunk:last-child {
+        grid-column: 3 !important;
+        grid-row: 2 !important;
+
+        justify-self: end !important;
+
+        display: flex !important;
+        align-items: center !important;
+
+        gap: 3px !important;
+
+        width: auto !important;
+    }
+
+
+    /* =================================================
+       SEMUA BUTTON FULLCALENDAR
+       ================================================= */
+
+    .fc .fc-button {
+        font-size: 0.55rem !important;
+
+        padding: 5px 7px !important;
+
+        min-height: 27px !important;
+
+        border-radius: 7px !important;
+
+        white-space: nowrap !important;
+
+        line-height: 1.2 !important;
+    }
+
+
+    /* =================================================
+       BUTTON GROUP
+       ================================================= */
+
+    .fc .fc-button-group {
+        display: flex !important;
+
+        align-items: center !important;
+
+        gap: 3px !important;
+    }
+
+    .fc .fc-button-group > .fc-button {
+        margin: 0 !important;
+
+        border-radius: 7px !important;
+    }
+
+
+    /* =================================================
+       TOMBOL PREVIOUS / NEXT
+       ================================================= */
+
+    .fc .fc-prev-button,
+    .fc .fc-next-button {
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+
+        min-width: 27px !important;
+    }
+
+
+    /* =================================================
+       HEADER HARI
+       ================================================= */
+
+    .fc .fc-col-header-cell {
+        padding: 4px 1px !important;
+    }
+
+    .fc .fc-col-header-cell-cushion {
+        font-size: 0.52rem !important;
+
+        padding: 4px 0 !important;
+
+        white-space: nowrap !important;
+    }
+
+
+    /* =================================================
+       ANGKA TANGGAL
+       ================================================= */
+
+    .fc .fc-daygrid-day-number {
+        font-size: 0.52rem !important;
+
+        padding: 3px !important;
+    }
+
+
+    /* =================================================
+       CELL KALENDER
+       ================================================= */
+
+    .fc .fc-daygrid-day-frame {
+        min-height: 52px !important;
+    }
+
+
+    /* =================================================
+       EVENT
+       ================================================= */
+
+    .fc .fc-daygrid-event {
+        margin: 2px 1px !important;
+
+        padding: 2px 3px !important;
+
+        border-radius: 4px !important;
+
+        font-size: 0.4rem !important;
+
+        line-height: 1.2 !important;
+    }
+
+    .fc .fc-event-title {
+        font-size: 0.4rem !important;
+
+        line-height: 1.2 !important;
+
+        white-space: normal !important;
+
+        overflow-wrap: anywhere !important;
+    }
+
+
+    /* =================================================
+       MORE EVENTS
+       ================================================= */
+
+    .fc .fc-more-link {
+        font-size: 0.4rem !important;
+    }
+
+
+    /* =================================================
+       MODAL
+       ================================================= */
+
+    .custom-modal-box {
+        width: calc(100% - 30px) !important;
+
+        max-width: 340px !important;
+
+        padding: 18px !important;
+
+        border-radius: 12px !important;
+    }
+
+    #modalTitle {
+        font-size: 1rem !important;
+    }
+
+    #modalBody {
+        font-size: 0.75rem !important;
+
+        line-height: 1.5 !important;
+    }
+
+    #closeModalBtn {
+        font-size: 0.7rem !important;
+
+        padding: 7px 15px !important;
+
+        border-radius: 7px !important;
+    }
+
+}
+

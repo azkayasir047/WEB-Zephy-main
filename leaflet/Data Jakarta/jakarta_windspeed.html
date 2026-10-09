@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kecepatan Angin Kota Jakarta (Prakiraan 5 hari)</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="shortcut icon" type="image/png" href="https://drive.google.com/thumbnail?id=1o1QQHMqbIHo5-CVkgdoQgP6VCNlzU23s">
+</head>
+<body>
+  <h1>Kecepatan Angin Kota Jakarta (Prakiraan 5 hari)</h1>
+  <canvas id="windSpeedChart"></canvas>
+  <select id="windUnit">
+    <option value="m/s">Meters per Second (m/s)</option>
+    <option value="km/h">Kilometers per Hour (km/h)</option>
+  </select>
+  <script>
+    const apiKey = 'fefda776b66c743280661d5abc123c22'; // API Key
+    const cityId = 1642911; // Jakarta city ID
+
+    async function getWeatherData() {
+      const url = `https://api.openweathermap.org/data/2.5/forecast?lat=-6.215&lon=106.845&appid=${apiKey}&units=metric`;
+      const response = await fetch(url);
+      const data = await response.json();
+      return data;
+    }
+
+    async function renderChart(unit) {
+      const weatherData = await getWeatherData();
+      const windSpeed = weatherData.list.map(hour => hour.wind.speed);
+      const labels = weatherData.list.map(hour => {
+        const date = new Date(hour.dt * 1000);
+        return `${date.toLocaleDateString()} ${date.toLocaleTimeString('short')}`;
+      });
+
+      const ctx = document.getElementById('windSpeedChart').getContext('2d');
+      let convertedSpeed;
+      if (unit === 'km/h') {
+        convertedSpeed = windSpeed.map(speed => speed * 3.6); // Convert m/s to km/h
+      } else {
+        convertedSpeed = windSpeed;
+      }
+
+      const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: `Wind Speed (${unit})`,
+            data: convertedSpeed,
+            borderColor: 'rgba(255, 159, 64, 1)',
+            borderWidth: 1,
+            fill: false
+          }]
+        },
+        options: {
+          scales: {
+            xAxes: [{
+              ticks: {
+                autoSkip: false,
+                maxRotation: 90,
+                minRotation: 90
+              }
+            }],
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+    }
+
+    const windUnitSelect = document.getElementById('windUnit');
+    windUnitSelect.addEventListener('change', (event) => {
+      const selectedUnit = event.target.value;
+      renderChart(selectedUnit);
+    });
+
+    renderChart('m/s'); // Initial render with m/s
+  </script>
+</body>
+</html>

@@ -1,0 +1,1188 @@
+/* ==========================================================================
+   HERO PROFILE (MATCHING LANDING PAGE VISUALS)
+   ========================================================================== */
+#hero-profile {
+    position: relative;
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 130px !important; /* Mencegah konten tertutup header */
+    padding-bottom: 60px !important;
+    background-color: transparent;
+    overflow: hidden;
+}
+
+/* Wrapper Transparan Mirip Gambar Referensi */
+.profile-box-wrapper {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 24px;
+    padding: 3.5rem 3rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.profile-hero-content {
+    width: 100%;
+    text-align: center;
+}
+
+.profile-hero-content h1 {
+    color: #011638;
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.profile-subtitle {
+    font-size: 1.15rem;
+    color: #195E8E;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Garis Pembatas Minimalis */
+.profile-divider {
+    width: 80px;
+    height: 4px;
+    background: #FFC300;
+    margin: 0 auto 2.5rem auto;
+    border-radius: 2px;
+}
+
+/* Pengaturan Blok Teks Utama */
+.profile-text-paragraphs {
+    text-align: justify;
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+.profile-text-paragraphs p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: #334155; /* Warna teks Slate yang lembut di mata */
+    margin-bottom: 1.5rem;
+    text-indent: 0px;
+}
+
+.profile-text-paragraphs p:last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   ORGANOGRAM
+   ========================================================================== */
+#organogram {
+    background: #f8fafc;
+    padding: 80px 0 !important;
+}
+
+#organogram .section-heading {
+    font-size: 2rem;
+    color: #011638;
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+}
+
+.organogram-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.03);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.organogram-card img {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+}
+
+/* ==========================================================================
+   ABOUT
+   ========================================================================== */
+#tentang {
+    padding: 80px 0 !important;
+    background: #fff;
+}
+
+#tentang .section-heading {
+    font-size: 2rem;
+    color: #011638;
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+}
+
+.about-card {
+    max-width: 900px;
+    margin: auto;
+    background: #f8fafc;
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(0,0,0,0.02);
+}
+
+.about-card p {
+    font-size: 1.05rem;
+    color: #475569;
+    margin-bottom: 1.2rem;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.about-card p:last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   FIXED CLEAN HEADER WITH PERMANENT HAMBURGER DROPDOWN (STRUKTUR FINAL)
+   ========================================================================== */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background: #ffffff !important;
+    box-shadow: 0 0 10px #bfa454; /* Menyesuaikan shadow kuning/emas bawah */
+}
+
+.header-container {
+    padding: 0 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /* Kunci penempatan dropdown absolute */
+}
+
+.header__logo img {
+    max-height: 45px !important;
+    width: auto;
+    display: block;
+}
+
+/* Wrapper Navigasi Kanan */
+.header__nav-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Menu Utama Horizontal (Desktop) */
+.header__menu-desktop {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.header__menu-desktop li a {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #011638;
+    transition: color 0.2s ease;
+}
+
+.header__menu-desktop li a:hover {
+    color: #bfa454 !important; /* Efek Emas */
+}
+
+/* Tombol Hamburger */
+.hamburger-btn {
+    background: none;
+    border: none;
+    color: #011638;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.hamburger-btn:hover {
+    color: #bfa454;
+}
+
+/* PANEL DROPDOWN HAMBURGER (MELAYANG ELEGAN) */
+.hamburger-dropdown {
+    position: absolute;
+    top: 75px; /* Pas di bawah batas header */
+    right: 5%; /* Sejajar dengan tombol hamburger */
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    padding: 8px 0;
+    display: none; /* Sembunyi default */
+    z-index: 1000;
+    animation: slideDownMenu 0.2s ease-out;
+}
+
+/* Tampilkan Dropdown saat ada class active */
+.hamburger-dropdown.active {
+    display: block;
+}
+
+.hamburger-dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Item di dalam Dropdown Hamburger */
+.sub-menu-item {
+    display: block;
+    padding: 10px 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333333;
+    transition: all 0.2s ease;
+}
+
+.sub-menu-item:hover {
+    background: rgba(1, 204, 255, 0.03);
+    color: #bfa454;
+    padding-left: 24px; /* Efek geser sedikit pas di-hover */
+}
+
+/* SPESIFIK INDIKATOR HALAMAN PROFIL SEDANG AKTIF (Gelap & Emas) */
+.sub-menu-item.active-page {
+    background: #195E8E !important; /* Latar belakang gelap penanda */
+    color: #bfa454 !important; /* Font warna emas */
+    font-weight: 600;
+}
+
+.sub-menu-item.active-page:hover {
+    background: #195E8E !important;
+}
+
+/* Penanda khusus tombol Login di mobile dropdown */
+.login-highlight {
+    border-top: 1px solid #f0f0f0;
+    margin-top: 4px;
+    color: #195E8E;
+}
+
+/* Animasi muncul smooth dari atas */
+@keyframes slideDownMenu {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (DISATUKAN AGAR TIDAK TUMPANG TINDIH)
+   ========================================================================== */
+@media (max-width: 768px) {
+    #hero-profile {
+        padding-top: 110px !important;
+    }
+
+    .profile-box-wrapper {
+        padding: 2rem 1.5rem;
+        border-radius: 16px;
+    }
+
+    .profile-hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .profile-subtitle {
+        font-size: 1rem;
+    }
+
+    .profile-text-paragraphs p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        text-align: left;
+    }
+
+    .about-card {
+        padding: 25px;
+    }
+
+    .testimonial {
+        flex-direction: column-reverse !important;
+        text-align: center;
+        padding: 20px 15px !important;
+    }
+  
+    .testimonial-text {
+        width: 100% !important;
+        padding: 15px 0 0 0 !important;
+    }
+  
+    .testimonial-image {
+        width: 100% !important;
+        margin-bottom: 15px;
+    }
+
+    .testimonial-image img {
+        width: 130px !important;
+        height: 130px !important;
+    }
+
+    /* Layout Dropdown Menu di Mobile */
+    .header__menu-desktop {
+        display: none; /* Sembunyi di HP, biar gak penuh */
+    }
+    
+    .hamburger-dropdown {
+        width: 90%;
+        left: 5%;
+        right: 5%;
+    }
+}
+
+#calendar-section{
+    padding:100px 0 70px;
+}
+
+.calendar-card{
+
+    background:rgba(255,255,255,.8);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+/* Judul bulan */
+
+.fc .fc-toolbar-title{
+
+    color:#011638;
+
+    font-size:2rem;
+
+    font-weight:700;
+
+}
+
+/* Tombol */
+
+.fc .fc-button{
+
+    background:#011638 !important;
+
+    border:none !important;
+
+    border-radius:10px !important;
+
+}
+
+.fc .fc-button:hover{
+
+    background:#bfa454 !important;
+
+}
+
+.fc .fc-button-active{
+
+    background:#bfa454 !important;
+
+}
+
+/* Header hari */
+
+.fc-col-header-cell{
+
+    background:#011638;
+
+}
+
+.fc-col-header-cell a{
+
+    color:white !important;
+
+    text-decoration:none;
+
+}
+
+/* Hari ini */
+
+.fc-day-today{
+
+    background:rgba(191,164,84,.15) !important;
+
+}
+
+/* Hover */
+
+.fc-daygrid-day:hover{
+
+    background:#edf7ff;
+
+}
+
+/* Event */
+
+.fc-event{
+
+    background:#bfa454 !important;
+
+    border:none !important;
+
+    border-radius:8px;
+
+    font-weight:600;
+
+}
+
+/* Nomor tanggal */
+
+.fc-daygrid-day-number{
+
+    color:#011638;
+
+}
+
+
+/* ==========================================================================
+   2. CONTACT SECTION STYLES
+   ========================================================================== */
+.contact {
+    display: flex;
+    align-items: flex-start;
+    gap: 3rem;
+}
+
+.contact-info {
+    flex: 1;
+    max-width: 50%;
+}
+
+.contact-map {
+    flex: 1;
+    max-width: 50%;
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    width: 100%;
+    height: 300px;
+    display: block;
+    border: 1px solid #ddd;
+}
+
+.contact-info .detail h3, 
+.contact-info .detail p {
+    font-size: 1.25rem;
+}
+
+.contact-info .detail a {
+    font-size: 1.1rem;
+}
+
+.contact-details .details {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+}
+
+.detail{
+    display: flex;
+    align-items: flex-start;
+    gap: 0px;
+    margin-bottom: 24px;
+}
+
+.detail i{
+    font-size: 1.8rem;   /* sebelumnya 2.5rem */
+    width: 30px;
+    text-align: center;
+    margin-top: 4px;      /* sesuaikan sampai sejajar */
+    flex-shrink: 0;
+}
+
+.detail.i i {
+    font-size: 1.6rem;
+    width: 30px;
+    text-align: center;
+    margin-left: 0;
+    margin-top: 4px;
+    flex-shrink: 0;
+}
+
+.detail__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;            
+    flex: 1;                 
+}
+
+.detail__content h3 {
+    margin: 10px auto 0px 30px;
+    font-size: 1.25rem;
+    line-height: 0.4;
+}
+
+.detail__content p {
+    margin: 0px auto auto 30px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Opsional: Style untuk link biar rapi */
+.detail__content p a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   3. FOOTER SECTION STYLES
+   ========================================================================== */
+footer {
+    padding: 2rem 0;
+}
+
+.footer__content {
+    display: grid;
+    gap: 5rem;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+}
+
+.footer__logo {
+    width: 300px;
+    margin-bottom: 0rem;
+    margin: auto auto auto 100px;
+}
+
+.footer__text {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin: auto auto auto 100px;
+}
+
+.footer__newsletter {
+    position: relative;
+}
+
+.footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-top: 3rem;
+}
+
+.footer__bottom-icons {
+    display: flex;
+    gap: 1rem;
+    font-size: 1.5rem;
+}
+
+/* Warna Khusus Ikon Sosmed */
+.instagram { color: #e4405f; }
+.linkedin { color: #0e76a8; } /* Digunakan untuk OA Line di HTML Anda */
+
+
+/* CONTACT & MAP */
+.contact{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.contact-info{
+    flex: 0.5;
+}
+
+.contact-map{
+    flex: 0.45;
+    min-height: 180px;
+    border-radius: 0px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+    margin-right:120px;
+}
+
+.contact-map iframe{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/*FOOTER*/
+
+footer {
+    padding: 2rem 0;
+}
+
+.footer__content {
+    display: grid;
+    gap: 5rem;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+}
+
+.footer__details{
+    margin-left: 0px;
+}
+
+
+.footer__newsletter {
+    position: relative;
+}
+
+.footer__newsletter input {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background-color: #f3f9fb;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.footer__newsletter .icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+}
+
+.footer__menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.footer__bottom-icons {
+    display: flex;
+    gap: 1rem;
+    font-size: 1.5rem;
+}
+
+.facebook { color: #3b5998; }
+.twitter { color: #00acee; }
+.instagram { color: #e4405f; }
+.linkedin { color: #0e76a8; }
+
+/* ============================================================
+   PROFILE PAGE — FINAL MOBILE RESPONSIVE
+   File: prof.css
+   Desktop TIDAK TERPENGARUH
+   ============================================================ */
+
+@media screen and (max-width: 768px) {
+
+    /* =====================================================
+       GLOBAL
+       ===================================================== */
+
+    html,
+    body {
+        width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    section {
+        padding-top: 2rem !important;
+        padding-bottom: 3rem !important;
+    }
+
+
+    /* =====================================================
+       HEADER
+       SAMA SEPERTI PAGE ARTIKEL
+       ===================================================== */
+
+    .header-container {
+        padding: 0 12px !important;
+    }
+
+    .header__logo img {
+        width: 95px !important;
+        max-height: 40px !important;
+    }
+
+    .header__nav-wrapper {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        min-width: 0 !important;
+    }
+
+    .header__menu-desktop {
+        display: flex !important;
+        align-items: center !important;
+
+        gap: 7px !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        white-space: nowrap !important;
+    }
+
+    .header__menu-desktop li a {
+        font-size: 0.68rem !important;
+
+        white-space: nowrap !important;
+    }
+
+    .hamburger-btn {
+        font-size: 1rem !important;
+
+        padding: 5px !important;
+    }
+
+    .hamburger-dropdown {
+        top: 60px !important;
+
+        right: 12px !important;
+
+        width: 170px !important;
+    }
+
+
+    /* =====================================================
+       HERO PROFILE
+       ===================================================== */
+
+    #hero-profile {
+        padding-top: 90px !important;
+        padding-bottom: 20px !important;
+    }
+
+    #hero-profile .container {
+        width: 100% !important;
+
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+
+        margin: 0 auto !important;
+    }
+
+    .profile-box-wrapper {
+        width: 100% !important;
+        max-width: 360px !important;
+
+        margin: 0 auto !important;
+
+        padding: 22px 15px !important;
+
+        box-sizing: border-box !important;
+
+        border-radius: 14px !important;
+    }
+
+    .profile-main-title {
+        font-size: 1.45rem !important;
+
+        line-height: 1.2 !important;
+
+        margin-bottom: 5px !important;
+    }
+
+    .profile-subtitle {
+        font-size: 0.72rem !important;
+
+        line-height: 1.4 !important;
+
+        margin-bottom: 15px !important;
+    }
+
+    .profile-hero-content > img {
+        width: 125px !important;
+        max-width: 125px !important;
+
+        height: auto !important;
+
+        margin: 0 auto 15px !important;
+    }
+
+    .profile-divider {
+        margin: 12px 0 15px !important;
+    }
+
+
+    /* =====================================================
+       PROFILE TEXT
+       ===================================================== */
+
+    .profile-text-paragraphs {
+        width: 100% !important;
+    }
+
+    .profile-text-paragraphs p {
+        font-size: 0.68rem !important;
+
+        line-height: 1.55 !important;
+
+        margin-bottom: 10px !important;
+
+        text-align: justify !important;
+    }
+
+
+    /* =====================================================
+       TOKOH ZEPHYRUS
+       ===================================================== */
+
+    #tokoh-zephyrus {
+        padding-top: 2rem !important;
+        padding-bottom: 2.5rem !important;
+    }
+
+    #tokoh-zephyrus .section-heading {
+        font-size: 1.35rem !important;
+
+        line-height: 1.2 !important;
+
+        margin-bottom: 20px !important;
+    }
+
+    .about-card {
+        width: calc(100% - 20px) !important;
+        max-width: 350px !important;
+
+        margin: 0 auto !important;
+
+        padding: 12px !important;
+
+        box-sizing: border-box !important;
+    }
+
+
+    /* =====================================================
+       TESTIMONIAL
+       ===================================================== */
+
+    .testimonial {
+        width: 100% !important;
+
+        padding: 12px !important;
+
+        gap: 8px !important;
+
+        box-sizing: border-box !important;
+    }
+
+    .testimonial-image img {
+        width: 80px !important;
+        height: 80px !important;
+
+        object-fit: cover !important;
+    }
+
+    .testimonial-text h2 {
+        font-size: 0.9rem !important;
+
+        line-height: 1.2 !important;
+
+        margin-bottom: 5px !important;
+    }
+
+    .testimonial-text p {
+        font-size: 0.62rem !important;
+
+        line-height: 1.5 !important;
+
+        text-align: justify !important;
+    }
+
+
+    /* =====================================================
+       ORGANOGRAM
+       ===================================================== */
+
+    .organogram-card {
+        width: calc(100% - 20px) !important;
+        max-width: 350px !important;
+
+        margin: 0 auto !important;
+
+        padding: 6px !important;
+
+        box-sizing: border-box !important;
+
+        overflow: hidden !important;
+    }
+
+    .organogram-card img {
+        display: block !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+
+        height: auto !important;
+    }
+
+
+    /* =====================================================
+       CONTACT
+       SAMA SEPERTI PAGE ARTIKEL
+       ===================================================== */
+
+    #contact {
+        width: 100% !important;
+
+        padding: 25px 8px 30px !important;
+
+        overflow: hidden !important;
+    }
+
+    #contact .section-heading {
+        font-size: 1.15rem !important;
+
+        line-height: 1.2 !important;
+
+        margin: 0 auto 22px !important;
+    }
+
+    .contact {
+        display: flex !important;
+
+        flex-direction: row !important;
+
+        align-items: flex-start !important;
+
+        width: 100% !important;
+        max-width: 330px !important;
+
+        margin: 0 auto !important;
+
+        padding: 0 !important;
+
+        gap: 6px !important;
+
+        box-sizing: border-box !important;
+    }
+
+
+    /* =====================================================
+       CONTACT INFO — KIRI
+       ===================================================== */
+
+    .contact-info {
+        flex: 0 0 calc(58% - 3px) !important;
+
+        width: calc(58% - 3px) !important;
+        max-width: calc(58% - 3px) !important;
+
+        min-width: 0 !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+
+    /* =====================================================
+       MAP — KANAN
+       ===================================================== */
+
+    .contact-map {
+        flex: 0 0 calc(42% - 3px) !important;
+
+        width: calc(42% - 3px) !important;
+        max-width: calc(42% - 3px) !important;
+
+        min-width: 0 !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        min-height: 115px !important;
+        height: 115px !important;
+
+        border-radius: 7px !important;
+
+        overflow: hidden !important;
+
+        box-shadow: 0 4px 10px rgba(0,0,0,.12) !important;
+    }
+
+    .contact-map iframe {
+        width: 100% !important;
+        height: 100% !important;
+
+        display: block !important;
+    }
+
+
+    /* =====================================================
+       CONTACT DETAIL
+       ===================================================== */
+
+    .details {
+        width: 100% !important;
+
+        max-width: 100% !important;
+    }
+
+    .detail {
+        display: flex !important;
+
+        gap: 4px !important;
+
+        margin-bottom: 8px !important;
+    }
+
+    .detail i,
+    .detail.i i {
+        flex: 0 0 10px !important;
+
+        width: 10px !important;
+        min-width: 10px !important;
+
+        font-size: 0.48rem !important;
+
+        margin-top: 1px !important;
+    }
+
+    .detail__content {
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        gap: 0 !important;
+    }
+
+    .detail__content h3 {
+        font-size: 0.48rem !important;
+
+        line-height: 1.15 !important;
+
+        margin: 0 0 2px !important;
+    }
+
+    .detail__content p {
+        font-size: 0.42rem !important;
+
+        line-height: 1.25 !important;
+
+        margin: 0 !important;
+
+        overflow-wrap: anywhere !important;
+    }
+
+    .detail__content p a {
+        font-size: inherit !important;
+    }
+
+
+    /* =====================================================
+       FOOTER
+       SAMA SEPERTI PAGE ARTIKEL
+       ===================================================== */
+
+    footer {
+        padding: 1rem 0 !important;
+
+        text-align: left !important;
+    }
+
+    .footer__content {
+        display: block !important;
+
+        width: 100% !important;
+
+        text-align: left !important;
+    }
+
+    .footer__details {
+        width: 100% !important;
+
+        margin: 0 !important;
+
+        text-align: left !important;
+    }
+
+    .footer__logo {
+        width: 115px !important;
+
+        margin: 15px 0 6px !important;
+    }
+
+    .footer__logo img {
+        display: block !important;
+
+        width: 100% !important;
+
+        height: auto !important;
+    }
+
+    .footer__text {
+        font-size: 0.62rem !important;
+
+        line-height: 1.5 !important;
+
+        margin: 0 !important;
+
+        text-align: left !important;
+    }
+
+    .footer__bottom {
+        display: flex !important;
+
+        flex-direction: column !important;
+
+        justify-content: flex-start !important;
+
+        align-items: flex-start !important;
+
+        gap: 6px !important;
+
+        margin: 18px 0 0 !important;
+
+        text-align: left !important;
+    }
+
+    .footer__bottom-icons {
+        display: flex !important;
+
+        justify-content: flex-start !important;
+
+        align-items: center !important;
+
+        gap: 10px !important;
+
+        font-size: 0.85rem !important;
+    }
+
+    .footer__bottom p {
+        margin: 0 !important;
+
+        font-size: 0.52rem !important;
+
+        text-align: left !important;
+    }
+
+}

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Data | Zephyrus</title>
+
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/data.css">
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/modules/accessibility.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+
+<body>
+
+        <!-- HEADER -->
+<header class="header">
+    <div class="container flex-row header-container">
+        <div class="header__logo">
+            <a href="tes_carousel.html">
+                <img src="assets/img/logo1.png" alt="LogoZephyrus">
+            </a>
+        </div>
+        
+        <div class="header__nav-wrapper">
+            <ul class="header__menu-desktop">
+                <li><a href="tes_carousel.html">Beranda</a></li>
+                <li><a href="../Data.html">Data</a></li>
+                <li><a href="../artikel/artikel.html">Artikel</a></li>
+            </ul>
+            
+            <button class="hamburger-btn" id="hamburger-trigger" aria-label="Buka Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div class="hamburger-dropdown" id="hamburger-target">
+            <ul>
+                <li><a href="profile.html" class="sub-menu-item active-page">Profil</a></li>
+                <li><a href="#kalender" class="sub-menu-item">Kalender</a></li>
+                <li><a href="#login" class="sub-menu-item login-highlight">Login</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+    <div class="gradient"></div>
+
+    <section class="article-hero">
+        <div class="container">
+            <h1 class="section-heading text-center">Data dan Hasil Pengamatan</h1>
+            <p class="section-subheading text-center">
+                Pantau Kondisi Lingkungan secara Akurat
+            </p>
+        </div>
+    </section>
+
+<section class="timeseries-section">
+    <div class="container">
+
+        <!-- Card 1 -->
+<div class="timeseries-card">
+    <!-- Judul -->
+    <div class="card-header">
+        <div>
+           <h2>📍 Mushola Sanding</h2>
+            <p class="subtitle">Data diperbarui setiap 5 menit</p>
+        </div>
+
+        <div class="last-update">
+            <small>Update Terakhir</small><br>
+            <strong>24 Juli 2026 | 16:25 WIB</strong>
+        </div>
+
+    </div>
+
+    <!-- Ringkasan -->
+    <div class="summary-container">
+
+        <div class="summary-box">
+            <p>Curah Hujan Saat Ini</p>
+            <h3>0.0 mm</h3>
+        </div>
+
+        <div class="summary-box">
+            <p>Akumulasi Curah Hujan / Jam</p>
+            <h3>12.5 mm</h3>
+        </div>
+
+        <div class="summary-box">
+            <p>Tinggi Muka Air</p>
+            <h3>36.58 cm</h3>
+        </div>
+
+    </div>
+
+    <!-- Grafik -->
+    <div class="chart-box">
+        <div id="musholaChart"></div>
+    </div>
+
+</div>
+<!-- Card 2 -->
+<div class="timeseries-card">
+
+    <div class="card-header">
+        <div>
+            <h2>📍 Ciharus</h2>
+            <p class="subtitle">Data diperbarui setiap 5 menit</p>
+        </div>
+
+        <div class="last-update">
+            <small>Update Terakhir</small><br>
+            <strong>24 Juli 2026 | 16:25 WIB</strong>
+        </div>
+    </div>
+
+    <div class="summary-container">
+
+        <div class="summary-box">
+            <p>Curah Hujan Saat Ini</p>
+            <h3>0.0 mm</h3>
+        </div>
+
+        <div class="summary-box">
+            <p>Akumulasi Curah Hujan / Jam</p>
+            <h3>12.5 mm</h3>
+        </div>
+
+        <div class="summary-box">
+            <p>Tinggi Muka Air</p>
+            <h3>36.58 cm</h3>
+        </div>
+
+    </div>
+
+    <div class="chart-box">
+        <div id="ciharusChart"></div>
+    </div>
+
+</div>
+<!-- Card 3 -->
+<div class="timeseries-card">
+
+    <div class="card-header">
+        <div>
+            <h2>📍 Onlimo Cibangoak</h2>
+            <p class="subtitle">Data diperbarui setiap 5 menit</p>
+        </div>
+
+        <div class="last-update">
+            <small>Update Terakhir</small><br>
+            <strong>24 Juli 2026 | 16:25 WIB</strong>
+        </div>
+    </div>
+
+    <div class="summary-container">
+
+        <div class="summary-box">
+            <p>Curah Hujan Saat Ini</p>
+            <h3>0.0 mm</h3>
+        </div>
+
+        <div class="summary-box">
+            <p>Akumulasi Curah Hujan / Jam</p>
+            <h3>12.5 mm</h3>
+        </div>
+
+        <div class="summary-box">
+            <p>Tinggi Muka Air</p>
+            <h3>36.58 cm</h3>
+        </div>
+
+    </div>
+
+    <div class="chart-box">
+        <div id="cibangoakChart"></div>
+    </div>
+</div>
+</div>
+</section>
+   
+    <!-- BAGIAN KONTAK -->
+<!-- CONTACT -->
+<section id="contact" style="background: url(assets/img/contact-bg.png); background-repeat: no-repeat; background-position: right; background-size: contain;">
+    <div class="container">
+        <h2 class="section-heading text-center"style="margin: 0px auto 60px auto;">MEDIA SOSIAL</h2>
+        <div class="contact">
+            <div class="contact-info">
+                <div class="details">
+                    <div class="detail i">
+                        <i class="fab fa-instagram"></i>
+                        <div class="detail__content">
+                    <h3>Instagram</h3>
+              <p><a href="https://www.instagram.com/zephyrus.journey/">@zephyrus.journey</a></p>
+            </div>
+          </div>
+          <div class="detail i">
+            <i class="fab fa-line"></i>
+            <div class="detail__content">
+              <h3>OA LINE</h3>
+              <p><a href="https://lin.ee/oUlq1t3">@590efkcc</a></p>
+            </div>
+          </div>
+          <div class="detail i">
+            <i class="fas fa-envelope"></i>
+            <div class="detail__content">
+              <h3>Email</h3>
+              <p><a href="mailto:hmmezephyrus@gmail.com">hmmezephyrus@gmail.com</a></p>
+            </div>
+          </div>
+          <div class="detail i">
+            <i class="fas fa-map-marker-alt"></i>
+            <div class="detail__content">
+              <h3>Alamat Sekretariat HMME "ATMOSPHAIRA" ITB</h3>
+              <p><a href="https://www.google.com/maps/place/Bandung+Institute+of+Technology/@-6.89148,107.6080788,17z/data=!3m1!4b1!4m6!3m5!1s0x2e68e65767c9b183:0x2478e3dcdce37961!8m2!3d-6.89148!4d107.6106591!16s%2Fm%2F06wc97_?entry=ttu">Labtek XI Kampus Ganesha Institut Teknologi Bandung, Jalan Ganesa No. 10</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map on the right side -->
+      <div class="contact-map">
+        <iframe
+            src="https://www.google.com/maps?q=Labtek+XI+Institut+Teknologi+Bandung&output=embed"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+</div>
+
+    <footer data-aos="fade-down">
+      <div class="container">
+        <div class="footer__content">
+          <div class="footer__details">
+            <div class="footer__logo">
+              <img src="../assets/img/logo1.png" alt="" width="150"/>
+            </div>
+            <p class="footer__text">
+              #ZephyrusJourney #RelevansiMengabdi
+            </p>
+            <div class="footer__newsletter">
+        </div>
+        <div class="footer__bottom">
+          <div class="footer__bottom-icons">
+            <a href="https://lin.ee/oUlq1t3" class="linkedin">
+              <i class="fab fa-line"></i>
+            </a>
+            <a href="mailto:hmmezephyrus@gmail.com" class="email">
+              <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://www.instagram.com/zephyrus.journey" class="instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.google.com/maps/place/Bandung+Institute+of+Technology/@-6.89148,107.6080788,17z/data=!3m1!4b1!4m6!3m5!1s0x2e68e65767c9b183:0x2478e3dcdce37961!8m2!3d-6.89148!4d107.6106591!16s%2Fm%2F06wc97_?entry=ttu" class="linkedin">
+              <i class=" fas fa-map-marker-alt"></i>
+            </a>
+          </div>
+          <p>&copy; BO Zepyhrus 2026</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // ADD FIXED HEADER
+      const header = document.querySelector("header");
+
+      window.addEventListener("scroll", () => {
+        header.classList.toggle("sticky", window.scrollY > 0);
+      });
+    </script>
+ 
+ <!-- Script Header -->
+<script>
+</script>
+<!-- TAMBAHKAN DI SINI -->
+<script>
+function createChart(id){
+
+Highcharts.stockChart(id,{
+
+    chart:{
+        height:260
+    },
+
+    rangeSelector:{
+        selected:0
+    },
+
+    title:{
+        text:null
+    },
+
+    series:[{
+        name:"Curah Hujan",
+        data:[
+            [Date.UTC(2026,6,24,0),2],
+            [Date.UTC(2026,6,24,3),8],
+            [Date.UTC(2026,6,24,6),5],
+            [Date.UTC(2026,6,24,9),10],
+            [Date.UTC(2026,6,24,12),15],
+            [Date.UTC(2026,6,24,15),12],
+            [Date.UTC(2026,6,24,18),8],
+            [Date.UTC(2026,6,24,21),6]
+        ]
+    }]
+
+});
+}
+createChart("musholaChart");
+createChart("ciharusChart");
+createChart("cibangoakChart");
+</script>
+</body>
+</html>
+

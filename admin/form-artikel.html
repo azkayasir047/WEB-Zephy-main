@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tulis Artikel - Zephyrus</title>
+
+    <link rel="icon" type="image/png" href="../assets/img/Logo Zephyrus.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome (lokal) -->
+    <link rel="stylesheet" href="../assets/css/fontawesome.min.css">
+
+    <!-- Editor teks (Quill, disimpan lokal di assets/vendor) -->
+    <link rel="stylesheet" href="../assets/vendor/quill/quill.snow.css">
+
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+
+<body>
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+
+<header class="header">
+
+    <div class="header-container">
+
+        <div class="header__logo">
+            <a href="../tes_carousel.html">
+                <img src="../assets/img/logo1.png" alt="Logo Zephyrus">
+            </a>
+        </div>
+
+        <div class="header__nav-wrapper">
+
+            <ul class="header__menu-desktop">
+                <li><a href="../tes_carousel.html">Beranda</a></li>
+                <li><a href="../Data.html">Data</a></li>
+                <li><a href="../artikel/art.html">Artikel</a></li>
+            </ul>
+
+            <button class="hamburger-btn" id="hamburger-trigger" aria-label="Buka Menu" type="button">
+                <i class="fas fa-bars"></i>
+            </button>
+
+        </div>
+
+        <div class="hamburger-dropdown" id="hamburger-target">
+            <ul>
+                <li><a href="../profile.html" class="sub-menu-item">Profil</a></li>
+                <li><a href="../kalender.html" class="sub-menu-item">Kalender</a></li>
+                <li id="loginItem">
+                    <a href="/login" class="sub-menu-item login-highlight" id="loginLink">Login</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
+<main class="admin-main">
+
+    <a href="dashboard.html" class="back-link">
+        <i class="fas fa-arrow-left"></i>
+        Kembali ke Daftar Artikel
+    </a>
+
+    <div class="page-header">
+
+        <div class="header-title">
+            <h1 id="pageTitle">Tulis Artikel Baru</h1>
+            <p id="pageSubtitle">Tulis isi artikel di bawah, lalu simpan sebagai draft atau langsung publish.</p>
+        </div>
+
+        <span class="badge badge-draft" id="statusBadge">Belum disimpan</span>
+
+    </div>
+
+    <!-- Loading saat mode edit -->
+    <div class="form-loading" id="formLoading" hidden>
+        <i class="fas fa-spinner fa-spin"></i>
+        Memuat artikel...
+    </div>
+
+    <form class="article-form" id="articleForm" novalidate>
+
+        <!-- =============================================
+             KOLOM KIRI: JUDUL + ISI
+             ============================================= -->
+
+        <div class="form-main">
+
+            <div class="form-group">
+                <label for="title" class="sr-only">Judul artikel</label>
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    class="input-title"
+                    placeholder="Judul artikel..."
+                    maxlength="255"
+                    autocomplete="off"
+                    required
+                >
+                <p class="field-error" id="titleError" hidden></p>
+            </div>
+
+            <div class="form-group">
+                <div class="editor-wrap">
+                    <div id="editor"></div>
+                </div>
+                <div class="editor-footer">
+                    <span id="wordCount">0 kata</span>
+                    <span>·</span>
+                    <span id="readTime">± 1 menit baca</span>
+                </div>
+                <p class="field-error" id="contentError" hidden></p>
+            </div>
+
+        </div>
+
+
+        <!-- =============================================
+             KOLOM KANAN: PENGATURAN
+             ============================================= -->
+
+        <aside class="form-side">
+
+            <!-- PUBLIKASI -->
+            <section class="side-card">
+
+                <h3><i class="fas fa-paper-plane"></i> Publikasi</h3>
+
+                <dl class="publish-info">
+                    <div>
+                        <dt>Status</dt>
+                        <dd id="infoStatus">Belum disimpan</dd>
+                    </div>
+                    <div id="infoLinkRow" hidden>
+                        <dt>Link</dt>
+                        <dd><a id="infoLink" href="#" target="_blank" rel="noopener">Lihat artikel <i class="fas fa-arrow-up-right-from-square"></i></a></dd>
+                    </div>
+                    <div id="infoUpdatedRow" hidden>
+                        <dt>Terakhir disimpan</dt>
+                        <dd id="infoUpdated">-</dd>
+                    </div>
+                </dl>
+
+                <div class="publish-actions">
+                    <button type="button" class="btn-secondary" id="btnDraft">
+                        <i class="fas fa-floppy-disk"></i>
+                        <span>Simpan Draft</span>
+                    </button>
+                    <button type="button" class="btn-primary" id="btnPublish">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Publish</span>
+                    </button>
+                </div>
+
+            </section>
+
+            <!-- KATEGORI -->
+            <section class="side-card">
+
+                <h3><i class="fas fa-tag"></i> Kategori</h3>
+
+                <select id="category" name="category" class="input">
+                    <option value="Kegiatan">Kegiatan</option>
+                    <option value="Edukasi">Edukasi</option>
+                    <option value="Rekap Bulanan">Rekap Bulanan</option>
+                </select>
+
+            </section>
+
+            <!-- THUMBNAIL -->
+            <section class="side-card">
+
+                <h3><i class="fas fa-image"></i> Gambar Sampul</h3>
+
+                <div class="thumb-drop" id="thumbDrop" tabindex="0" role="button" aria-label="Pilih gambar sampul">
+
+                    <img id="thumbPreview" alt="Pratinjau gambar sampul" hidden>
+
+                    <div class="thumb-empty" id="thumbEmpty">
+                        <i class="fas fa-cloud-arrow-up"></i>
+                        <span>Klik atau seret gambar ke sini</span>
+                        <small>JPG, PNG, WEBP · maks 5 MB</small>
+                    </div>
+
+                    <div class="thumb-uploading" id="thumbUploading" hidden>
+                        <i class="fas fa-spinner fa-spin"></i> Mengunggah...
+                    </div>
+
+                </div>
+
+                <input type="file" id="thumbInput" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+                <input type="hidden" id="thumbnail" name="thumbnail">
+
+                <button type="button" class="btn-link-danger" id="thumbRemove" hidden>
+                    <i class="fas fa-xmark"></i> Hapus gambar sampul
+                </button>
+
+            </section>
+
+            <!-- RINGKASAN -->
+            <section class="side-card">
+
+                <h3><i class="fas fa-align-left"></i> Ringkasan</h3>
+
+                <textarea
+                    id="excerpt"
+                    name="excerpt"
+                    class="input"
+                    rows="4"
+                    maxlength="300"
+                    placeholder="Kosongkan untuk dibuat otomatis dari paragraf awal."
+                ></textarea>
+
+                <p class="field-hint">Tampil di kartu artikel pada halaman Artikel.</p>
+
+            </section>
+
+            <!-- PENULIS -->
+            <section class="side-card">
+
+                <h3><i class="fas fa-user-pen"></i> Penulis</h3>
+
+                <input
+                    type="text"
+                    id="author"
+                    name="author"
+                    class="input"
+                    maxlength="100"
+                    value="BO Zephyrus"
+                >
+
+            </section>
+
+        </aside>
+
+    </form>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+    <div class="footer-container">
+        <div class="footer__content">
+            <div class="footer__details">
+                <div class="footer__logo">
+                    <img src="../assets/img/logo1.png" alt="Logo Zephyrus">
+                </div>
+                <p class="footer__text">#ZephyrusJourney<br>#RelevansiMengabdi</p>
+                <div class="footer__bottom">
+                    <div class="footer__bottom-icons">
+                        <a href="https://lin.ee/oUlq1t3" target="_blank" title="LINE"><i class="fab fa-line"></i></a>
+                        <a href="mailto:hmmezephyrus@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                        <a href="https://www.instagram.com/zephyrus.journey" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.google.com/maps/place/Bandung+Institute+of+Technology/" target="_blank" title="Lokasi"><i class="fas fa-map-marker-alt"></i></a>
+                    </div>
+                    <p>&copy; BO Zephyrus 2026</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script src="../assets/js/auth-ui.js"></script>
+<script src="../assets/vendor/quill/quill.js"></script>
+<script src="../assets/js/admin-common.js"></script>
+<script src="../assets/js/admin-form.js"></script>
+
+</body>
+</html>

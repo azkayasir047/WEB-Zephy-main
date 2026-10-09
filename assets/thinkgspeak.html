@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Water Level and Rainfall Monitoring</title>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script src="https://code.highcharts.com/modules/annotations.js"></script>
+</head>
+<body>
+  <div id="container" style="width:100%; height:500px;"></div>
+  <script>
+    // Fetch ThingSpeak data
+    function fetchThingSpeakData(channelId, apiKey) {
+      var url = 'https://api.thingspeak.com/channels/' + channelId + '/feeds.json?api_key=' + apiKey + '&results=200';
+      
+      fetch(url)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          // Process feed data
+          var waterLevelData = [];
+          var rainfallData = [];
+          var categories = [];
+
+          data.feeds.forEach(function(feed) {
+            // Parse timestamp
+            var date = new Date(feed.created_at);
+            var formattedTime = date.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' });
+            categories.push(formattedTime);
+          });
+
+          data.feeds.forEach(function(feed) {
+            // Extract water level and rainfall
+            var waterLevel = parseFloat(feed.field3);
+            var rainfall = parseFloat(feed.field4);
+
+            if (!isNaN(waterLevel)) {
+              waterLevelData.push(waterLevel);
+            } else {
+              waterLevelData.push(null);
+            }
+
+            if (!isNaN(rainfall)) {
+              rainfallData.push(rainfall);
+            } else {
+              rainfallData.push(null);
+            }
+          });
+
+          // Create the chart
+          var chart = Highcharts.chart('container', {
+            chart: {
+              type: 'line',
+              panning: {
+                enabled: true,
+                type: 'x',
+                panKey: 'shift'
+              },
+              zoomType: 'x'
+            },
+            title: {
+              text: 'Water Level and Rainfall Monitoring'
+            },
+            xAxis: {
+              type: 'category',
+              categories: categories,
+              title: {
+                text: 'Time'
+              }
+            },
+            yAxis: [
+              {
+                title: {
+                  text: 'Water Lvl (m)'
+                },
+                labels: {
+                  format: '{value:.2f}'
+                }
+              },
+              {
+                title: {
+                  text: 'Rainfall (mm)'
+                },
+                labels: {
+                  format: '{value:.2f}'
+                },
+                opposite: true
+              }
+            ],
+            series: [
+              {
+                name: 'Water Level',
+                data: waterLevelData,
+                yAxis: 0
+              },
+              {
+                name: 'Rainfall',
+                data: rainfallData,
+                yAxis: 1
+              }
+            ],
+            tooltip: {
+              shared: true
+            },
+            exporting: {
+              enabled: true
+            },
+            plotOptions: {
+              series: {
+                marker: {
+                  enabled: false
+                }
+              }
+            },
+            annotations: [{
+              labelOptions: {
+                backgroundColor: 'rgba(255,255,255,0.5)',
+                borderColor: 'silver'
+              },
+              labels: [{
+                point: {
+                  xAxis: 0,
+                  yAxis: 0,
+                  x: categories.length - 1,
+                  y: waterLevelData[waterLevelData.length - 1]
+                },
+                text: 'Current Water Level: ' + waterLevelData[waterLevelData.length - 1].toFixed(2) + ' m'
+              }]
+            }]
+          });
+
+          // Add zoom functionality
+          chart.xAxis[0].setExtremes(0, 7); // Show 8 data points initially
+          
+          chart.update({
+            chart: {
+              events: {
+                selection: function(event) {
+                  if (event.xAxis) {
+                    var min = event.xAxis[0].min;
+                    var max = event.xAxis[0].max;
+                    var tickInterval = Math.round((max - min) / 7); // Keep 8 ticks visible
+                    chart.xAxis[0].update({
+                      tickInterval: tickInterval
+                    });
+                  } else {
+                    chart.xAxis[0].setExtremes();
+                  }
+                }
+              }
+            }
+          });
+        })
+        .catch(function(error) {
+          console.error('Error fetching ThingSpeak data:', error);
+        });
+    }
+
+    // Fetch data for the specified channel
+    fetchThingSpeakData('2649800', 'MLJBMJUO962CM9E6');
+  </script>
+</body>
+</html>

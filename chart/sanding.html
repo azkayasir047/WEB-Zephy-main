@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/stock.js"></script>
+  <script src="https://code.highcharts.com/modules/data.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/series-label.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/thingspeak-fetch"></script>
+</head>
+<body>
+  <div id="container"></div>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      // Replace with your ThingSpeak channel and fields
+      const channelID = '2964244';
+      const readAPIKey = 'EV56VHBZ0WLED2FU'; // Add your read API key if needed
+      const fieldTMA = 2; // Field for TMA
+      const fieldCH = 3;  // Field for CH
+
+      // Fetch data from ThingSpeak
+      async function fetchThingSpeakData(field) {
+        const response = await fetch(
+          `https://api.thingspeak.com/channels/${channelID}/fields/${field}.json?results=4000${
+            readAPIKey ? `&api_key=${readAPIKey}` : ''
+          }`
+        );
+        const data = await response.json();
+        return data.feeds.map(feed => [
+        new Date(feed.created_at).getTime() + (7 * 60 * 60 * 1000), // Convert to UTC+7 by adding 7 hours in milliseconds
+          parseFloat(feed[`field${field}`]),   // Parse the value
+        ]).filter(entry => !isNaN(entry[1])); // Remove invalid entries
+      }
+
+      const rawDataTMA = await fetchThingSpeakData(fieldTMA); // TMA Data
+      const rawDataCH = await fetchThingSpeakData(fieldCH);  // CH Data
+      const now = Date.now();
+
+      // Function to filter data based on range
+      function getFilteredData(data, rangeInMillis) {
+        const rangeStart = now - rangeInMillis;
+        return data.filter(([timestamp]) => timestamp >= rangeStart);
+      }
+
+      // Highcharts initialization
+      Highcharts.stockChart('container', {
+        chart: {
+          type: 'line',
+        },
+        title: {
+          text: 'Tinggi Muka Air dan Curah Hujan Mushola Sanding',
+        },
+        rangeSelector: {
+          enabled: true,
+          selected: 0, // Default range
+          buttons: [
+            { type: 'hour', count: 6, text: '6h', events: { click: () => updateData(6 * 60 * 60 * 1000) } },
+            { type: 'day', count: 1, text: '1d', events: { click: () => updateData(24 * 60 * 60 * 1000) } },
+            { type: 'day', count: 3, text: '3d', events: { click: () => updateData(3 * 24 * 60 * 60 * 1000) } },
+            { type: 'week', count: 1, text: '1w', events: { click: () => updateData(7 * 24 * 60 * 60 * 1000) } },
+            { type: 'all', text: 'All', events: { click: () => updateData(Infinity) } },
+          ],
+        },
+        navigator: {
+          enabled: true,
+        },
+        scrollbar: {
+          enabled: true,
+        },
+        series: [
+          {
+            name: 'Tinggi Muka Air',
+            data: rawDataTMA, // Initial data for TMA
+            tooltip: {
+              valueSuffix: ' cm',
+            },
+            yAxis: 0,
+            color: '#6CBB3C',
+          },
+          {
+            name: 'Curah Hujan',
+            data: rawDataCH, // Initial data for CH
+            tooltip: {
+              valueSuffix: ' mm',
+            },
+            yAxis: 1,
+            color: 'skyblue',
+          },
+        ],
+        yAxis: [
+          {
+            labels: {
+              format: '{value} cm',
+              align: 'right', // Ensure labels don't overlap
+              x: -10, // Add padding to move labels away from the chart
+            },
+            title: {
+              text: 'TMA (cm)',
+            },
+            opposite: false, // Ensure the axis stays on the left
+          },
+          {
+            labels: {
+              format: '{value} mm',
+              align: 'left',
+              x: 10,
+            },
+            title: {
+              text: 'CH (mm)',
+            },
+            opposite: true, // Place CH axis on the right
+          },
+        ],
+        responsive: {
+          rules: [
+            {
+              condition: {
+                maxWidth: 768,
+              },
+            },
+          ],
+        },
+      });
+
+      // Update chart data based on range
+      function updateData(rangeInMillis) {
+        const filteredTMA = getFilteredData(rawDataTMA, rangeInMillis);
+        const filteredCH = getFilteredData(rawDataCH, rangeInMillis);
+
+        const chart = Highcharts.charts[0]; // Access the chart instance
+        chart.series[0].setData(filteredTMA, true); // Update TMA data
+        chart.series[1].setData(filteredCH, true); // Update CH data
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+    <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalender | Zephyrus ITB</title>
+    <link rel="icon" type="image/png" href="../assets/img/Logo Zephyrus.png">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/prof.css">
+    <link rel="stylesheet" href="../assets/css/kalender.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/index.global.min.css" rel="stylesheet">
+    <style>
+        .fc-daygrid-event {
+            white-space: normal !important;
+            align-items: normal !important;
+            padding: 4px 6px !important;
+        }
+        .fc-daygrid-event .fc-event-title {
+            white-space: normal !important;
+            overflow: visible !important;
+        }
+        /* Style Modal Pop-up */
+        .custom-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        .custom-modal-box {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .custom-modal-overlay.show {
+            display: flex !important;
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="container flex-row header-container">
+        <div class="header__logo">
+            <a href="tes_carousel.html">
+                <img src="assets/img/logo1.png" alt="LogoZephyrus">
+            </a>
+        </div>
+        
+        <div class="header__nav-wrapper">
+            <ul class="header__menu-desktop">
+                <li><a href="tes_carousel.html">Beranda</a></li>
+                <li><a href="../Data.html">Data</a></li>
+                <li><a href="../artikel/art.html">Artikel</a></li>
+            </ul>
+            
+            <button class="hamburger-btn" id="hamburger-trigger" aria-label="Buka Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div class="hamburger-dropdown" id="hamburger-target">
+            <ul>
+                <li><a href="profile.html" class="sub-menu-item">Profil</a></li>
+                <li><a href="#kalender" class="sub-menu-item ">Kalender</a></li>
+                <li><a href="login.html" class="sub-menu-item login-highlight">Login</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<section id="calendar-section">
+    <div class="container">
+        <h2 class="section-heading">Kalender Kegiatan</h2>
+        <div class="calendar-card">
+            <div id="calendar"></div>
+        </div>
+    </div>
+
+    <!-- Kotak Pop-up Modal -->
+    <div id="eventModal" class="custom-modal-overlay">
+        <div class="custom-modal-box">
+            <h3 id="modalTitle" style="margin-bottom: 15px; color: #011638; font-size: 1.25rem; font-weight: 700;">Judul Kegiatan</h3>
+            <div id="modalBody" style="color: #444; font-size: 0.95rem; margin-bottom: 20px; line-height: 1.6;">
+                <!-- Isi detail acara muncul otomatis -->
+            </div>
+            <div style="text-align: right;">
+                <button id="closeModalBtn" style="background: #011638; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-weight: 600;">TUTUP</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FullCalendar JS -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/index.global.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+    const calendarEl = document.getElementById("calendar");
+
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+        slotLabelFormat: {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+},
+        initialView: "dayGridMonth",
+        locale: "id",
+        height: "auto",
+        headerToolbar: {
+            left: "prev,next today",
+            center: "title",
+            right: "dayGridMonth,timeGridWeek,listMonth"
+        },
+        buttonText: {
+            today: "Hari Ini",
+            month: "Bulan",
+            week: "Minggu",
+            list: "Agenda"
+        },
+        events: [
+            {
+                title: "Rapat Pengurus",
+                start: "2026-08-15",
+                description: "Rapat koordinasi bulanan pengurus inti."
+            },
+            {
+                title: "Workshop WRF-Hydro",
+                start: "2026-08-20",
+                description: "Pelatihan pemodelan hidrologi dan cuaca."
+            },
+            {
+                title: "Pengabdian Majalaya",
+                start: "2026-08-25",
+                end: "2026-08-27",
+                description: "Kegiatan pengabdian masyarakat di daerah Majalaya."
+            },
+            {
+                title: "Maintenance Z-ONA",
+                start: "2026-09-03",
+                description: "Pemeliharaan rutin sistem database."
+            }
+        ],
+        // Logika saat event diklik
+        eventClick: function(info) {
+            const modal = document.getElementById("eventModal");
+            const title = document.getElementById("modalTitle");
+            const body = document.getElementById("modalBody");
+
+            title.textContent = info.event.title;
+
+            let startDateStr = info.event.start.toLocaleDateString("id-ID", {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            });
+
+            body.innerHTML = `
+                <p style="margin-bottom: 8px;"><strong>Tanggal:</strong> ${startDateStr}</p>
+                <p><strong>Keterangan:</strong> ${info.event.extendedProps.description || 'Tidak ada catatan tambahan.'}</p>
+            `;
+
+            modal.classList.add("show");
+        }
+    });
+
+    calendar.render();
+
+    // Logika tombol tutup pop-up
+    const modal = document.getElementById("eventModal");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+
+    closeModalBtn.addEventListener("click", function() {
+        modal.classList.remove("show");
+    });
+
+    modal.addEventListener("click", function(e) {
+        if (e.target === modal) {
+            modal.classList.remove("show");
+        }
+    });
+});
+</script>
+
+<script>
+    const hamburgerTrigger = document.getElementById("hamburger-trigger");
+    const hamburgerTarget = document.getElementById("hamburger-target");
+
+    hamburgerTrigger.addEventListener("click", function (e) {
+        e.stopPropagation();
+        hamburgerTarget.classList.toggle("active");
+    });
+
+    document.addEventListener("click", function (e) {
+        if (!hamburgerTarget.contains(e.target) && 
+            !hamburgerTrigger.contains(e.target)) {
+            hamburgerTarget.classList.remove("active");
+        }
+    });
+</script>
+<script src="/assets/js/auth-ui.js"></script>
+
+</body>
+</html>
