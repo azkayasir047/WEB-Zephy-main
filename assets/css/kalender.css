@@ -190,6 +190,15 @@
     color: #ffffff !important;
 }
 
+/* Warna tulisan header untuk hari ini */
+.fc .fc-col-header-cell.fc-day-today .fc-col-header-cell-cushion {
+    color: #ffffff !important;
+}
+
+.fc .fc-col-header-cell.fc-day-today {
+    background-color: #999999 !important;
+}
+
 /* =====================================================
    FIX BACKGROUND KALENDER
    SEMUA KOLOM/CELL PUTIH
